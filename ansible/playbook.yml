@@ -3,29 +3,14 @@
   hosts: home_server
   become: true
 
-  tasks:
+  vars:
+    ssh_port: "{{ lookup('env', 'ANSIBLE_PORT') }}"
+
+  pre_tasks:
     - name: Ensure apt is updated
       apt:
-        update_cache: yes
+        update_cache: true
         cache_valid_time: 3600
 
-    - name: Install unattended-upgrades
-      apt:
-        name:
-          - unattended-upgrades
-        state: present
-
-    - name: Ensure unattended-upgrades is enabled and running
-      systemd:
-        name: unattended-upgrades
-        state: started
-        enabled: yes
-
-    - name: Copy periodic upgrade configuration into place
-      copy:
-        dest: /etc/apt/apt.conf.d/20auto-upgrades
-        content: |
-          APT::Periodic::Update-Package-Lists "1";
-          APT::Periodic::Download-Upgradeable-Packages "1";
-          APT::Periodic::AutocleanInterval "7";
-          APT::Periodic::Unattended-Upgrade "1";
+  roles:
+    - security
