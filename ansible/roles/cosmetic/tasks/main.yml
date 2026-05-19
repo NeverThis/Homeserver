@@ -1,0 +1,11 @@
+---
+# Install fastfetch to display system information
+- name: Install fastfetch
+  apt:
+    name: fastfetch
+    state: present
+
+- name: Configure fastfetch to run automatically on SSH login
+  template:
+    src: fastfetch.sh.j2
+    dest: /etc/profile.d/fastfetch.sh
