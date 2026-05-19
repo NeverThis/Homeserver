@@ -1,4 +1,5 @@
 ---
+# Install unattended-upgrades to periodically and automatically install security patches.
 - name: Install unattended-upgrades
   apt:
     name:
@@ -17,6 +18,7 @@
     state: started
     enabled: true
 
+# Install fail2ban to automatically block repeated failed login attempts.
 - name: Install fail2ban
   apt:
     name:
@@ -34,3 +36,34 @@
     name: fail2ban
     state: started
     enabled: true
+
+# Install UFW (Uncomplicated Firewall).
+- name: Install UFW
+  apt:
+    name: 
+      - ufw
+    state: present
+
+# Default-deny all unsolicited incoming traffic.
+- name: Set default incoming policy to deny
+  community.general.ufw:
+    direction: incoming
+    policy: deny
+
+# Allow all outbound traffic by default.
+- name: Set default outgoing policy to allow
+  community.general.ufw:
+    direction: outgoing
+    policy: allow
+
+# Allow SSH access
+- name: Allow SSH traffic
+  community.general.ufw:
+    rule: limit
+    port: "{{ ssh_port }}"
+    proto: tcp
+  notify:  Reload UFW
+
+- name: Ensure UFW is enabled and running
+  community.general.ufw:
+    state: enabled

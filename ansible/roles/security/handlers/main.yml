@@ -8,3 +8,7 @@
   systemd:
     name: fail2ban
     state: restarted
+
+- name: Reload UFW
+  community.general.ufw:
+    state: reloaded
