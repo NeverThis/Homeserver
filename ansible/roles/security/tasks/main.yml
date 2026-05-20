@@ -37,7 +37,7 @@
     state: started
     enabled: true
 
-# Install UFW (Uncomplicated Firewall).
+# Install UFW (Uncomplicated Firewall) to block unsolicited traffic.
 - name: Install UFW
   apt:
     name: 

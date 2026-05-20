@@ -1,0 +1,35 @@
+---
+- name: Install Docker dependencies
+  apt:
+    name:
+      - ca-certificates
+    state: present
+
+- name: Add Docker repository
+  ansible.builtin.deb822_repository:
+    name: docker
+    types: deb
+    uris: https://download.docker.com/linux/debian
+    suites: "{{ ansible_facts.distribution_release }}"
+    components: stable
+    architectures: amd64
+    signed_by: https://download.docker.com/linux/debian/gpg
+    state: present
+
+# Install docker to run containerized applications
+- name: Install docker
+  apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+    state: present
+    update_cache: true
+
+- name: Ensure docker is enabled and running
+  systemd:
+    name: docker
+    state: started
+    enabled: true
