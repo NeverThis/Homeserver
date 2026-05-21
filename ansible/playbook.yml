@@ -5,6 +5,7 @@
 
   vars:
     ssh_port: "{{ lookup('env', 'ANSIBLE_PORT') }}"
+    timezone: "Europe/Berlin"
 
   pre_tasks:
     - name: Ensure apt is updated
@@ -16,3 +17,4 @@
     - security
     - cosmetic
     - docker
+    - pihole

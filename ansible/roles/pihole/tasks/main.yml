@@ -1,0 +1,20 @@
+---
+- name: Create Pi-hole directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - /srv/pihole
+    - /srv/pihole/data
+
+- name: Deploy Docker Compose file
+  template:
+    src: docker-compose.yml.j2
+    dest: /srv/pihole/docker-compose.yml
+
+# Install Pi-hole as a DNS sinkhole
+- name: Start Pi-hole
+  community.docker.docker_compose_v2:
+    project_src: /srv/pihole
+    pull: always
+    state: present
