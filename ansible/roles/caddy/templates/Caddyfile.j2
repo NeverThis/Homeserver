@@ -1,0 +1,6 @@
+# Pi-hole routing
+pihole.{{ domain }} {
+    tls internal
+    redir / /admin/
+    reverse_proxy pihole:80
+}

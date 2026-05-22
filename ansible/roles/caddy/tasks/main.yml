@@ -1,0 +1,27 @@
+---
+- name: Create Caddy directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - /srv/caddy
+    - /srv/caddy/data
+    - /srv/caddy/config
+
+- name: Deploy Caddyfile
+  template:
+    src: Caddyfile.j2
+    dest: /srv/caddy/Caddyfile
+  notify: Restart Caddy
+
+- name: Deploy Caddy Docker Compose file
+  template:
+    src: docker-compose.yml.j2
+    dest: /srv/caddy/docker-compose.yml
+
+# Install Caddy as a reverse proxy
+- name: Start Caddy
+  community.docker.docker_compose_v2:
+    project_src: /srv/caddy
+    pull: always
+    state: present

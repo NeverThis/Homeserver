@@ -4,13 +4,9 @@ services:
     container_name: pihole
     image: pihole/pihole:latest
     ports:
-      # DNS Ports
+      # DNS Ports must remain public
       - "53:53/tcp"
       - "53:53/udp"
-      # Default HTTP Port
-      - "80:80/tcp"
-      # Default HTTPs Port. FTL will generate a self-signed certificate
-      - "443:443/tcp"
     environment:
       TZ: "{{ timezone }}"
       FTLCONF_webserver_api_password: "{{ lookup('env', 'PIHOLE_PASSWORD') }}"
@@ -19,3 +15,11 @@ services:
       # For persisting Pi-hole's databases and common configuration file
       - '/srv/pihole/data:/etc/pihole'
     restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - gateway
+
+networks:
+  gateway:
+    external: true

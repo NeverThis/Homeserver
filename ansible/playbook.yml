@@ -4,10 +4,15 @@
   become: true
 
   vars:
+    domain: "myhome.lan"
     ssh_port: "{{ lookup('env', 'ANSIBLE_PORT') }}"
     timezone: "Europe/Berlin"
 
   pre_tasks:
+    - name: Ensure running on Debian
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.os_family == "Debian"
     - name: Ensure apt is updated
       apt:
         update_cache: true
@@ -18,3 +23,4 @@
     - cosmetic
     - docker
     - pihole
+    - caddy

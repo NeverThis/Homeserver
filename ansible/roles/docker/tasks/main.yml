@@ -33,3 +33,8 @@
     name: docker
     state: started
     enabled: true
+
+- name: Create shared Docker network
+  community.docker.docker_network:
+    name: gateway
+    state: present
