@@ -2,6 +2,7 @@ services:
   caddy:
     container_name: caddy
     image: caddy:latest
+    user: "1000:1000"
     ports:
       - "80:80"
       - "443:443"
