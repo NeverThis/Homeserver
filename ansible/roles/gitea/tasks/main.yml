@@ -1,0 +1,23 @@
+---
+- name: Create Gitea directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: "1000"
+    group: "1000"
+  loop:
+    - /srv/gitea
+    - /srv/gitea/data
+    - /srv/gitea/config
+
+- name: Deploy Docker Compose file
+  template:
+    src: docker-compose.yml.j2
+    dest: /srv/gitea/docker-compose.yml
+
+# Install Gitea as a version control system
+- name: Start Gitea
+  community.docker.docker_compose_v2:
+    project_src: /srv/gitea
+    pull: always
+    state: present

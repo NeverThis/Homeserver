@@ -4,3 +4,9 @@ pihole.{{ domain }} {
     redir / /admin/
     reverse_proxy pihole:80
 }
+
+# Gitea routing
+gitea.{{ domain }} {
+    tls internal
+    reverse_proxy gitea:3000
+}
