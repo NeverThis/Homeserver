@@ -1,0 +1,19 @@
+services:
+  dozzle:
+    container_name: dozzle
+    image: amir20/dozzle:latest
+    user: "1000:989"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /srv/dozzle/data:/data
+    environment:
+      - DOZZLE_HOSTNAME=my-home
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - gateway
+
+networks:
+  gateway:
+    external: true

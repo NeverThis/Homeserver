@@ -1,12 +1,20 @@
-# Pi-hole routing
+# Pi-hole
 pihole.{{ domain }} {
     tls internal
     redir / /admin/
     reverse_proxy pihole:80
 }
 
-# Gitea routing
+# Gitea
 gitea.{{ domain }} {
     tls internal
     reverse_proxy gitea:3000
+}
+
+# Dozzle
+dozzle.{{ domain }} {
+    tls internal
+    reverse_proxy dozzle:8080 {
+        flush_interval -1 # See https://dozzle.dev/guide/changing-base
+    }
 }

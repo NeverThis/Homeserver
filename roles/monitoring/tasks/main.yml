@@ -1,0 +1,22 @@
+---
+- name: Create Dozzle directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: "1000"
+    group: "1000"
+  loop:
+    - /srv/dozzle
+    - /srv/dozzle/data
+
+- name: Deploy Docker Compose file
+  template:
+    src: docker-compose.yml.j2
+    dest: /srv/dozzle/docker-compose.yml
+
+# Install Dozzle as a monitoring solution
+- name: Start Dozzle
+  community.docker.docker_compose_v2:
+    project_src: /srv/dozzle
+    pull: always
+    state: present
