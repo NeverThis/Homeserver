@@ -29,6 +29,14 @@ Prerequisites:
     source ../.env && ansible-playbook playbook.yml --ask-become-pass
     ```
 
+## TODO
+
+- [ ] Add configuration for Docker daemon
+ - [ ] Configure log rotation
+ - [ ] Prevent containers from gaining new privileges
+- [ ] Add file-based user management to Dozzle
+
+
 ## FAQ
 
 <details>
