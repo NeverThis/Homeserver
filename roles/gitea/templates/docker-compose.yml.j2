@@ -14,8 +14,6 @@ services:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     restart: unless-stopped
-    security_opt:
-      - no-new-privileges:true
     networks:
       - gateway
 

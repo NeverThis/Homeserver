@@ -12,8 +12,6 @@ services:
       - /srv/caddy/data:/data
       - /srv/caddy/config:/config
     restart: unless-stopped
-    security_opt:
-      - no-new-privileges:true
     networks:
       - gateway
 

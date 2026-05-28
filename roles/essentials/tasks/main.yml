@@ -17,7 +17,7 @@
     state: present
 
 # Install docker to run containerized applications
-- name: Install docker
+- name: Install Docker
   apt:
     name:
       - docker-ce
@@ -28,7 +28,13 @@
     state: present
     update_cache: true
 
-- name: Ensure docker is enabled and running
+- name: Deploy Docker daemon config
+  ansible.builtin.template:
+    src: daemon.json.j2
+    dest: /etc/docker/daemon.json
+  notify: Restart docker
+
+- name: Ensure Docker is enabled and running
   systemd:
     name: docker
     state: started

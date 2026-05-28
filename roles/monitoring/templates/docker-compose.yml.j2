@@ -9,8 +9,6 @@ services:
     environment:
       - DOZZLE_HOSTNAME=my-home
     restart: unless-stopped
-    security_opt:
-      - no-new-privileges:true
     networks:
       - gateway
 

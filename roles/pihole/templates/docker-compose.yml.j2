@@ -15,8 +15,6 @@ services:
       # For persisting Pi-hole's databases and common configuration file
       - '/srv/pihole/data:/etc/pihole'
     restart: unless-stopped
-    security_opt:
-      - no-new-privileges:true
     networks:
       - gateway
 
