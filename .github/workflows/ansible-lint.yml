@@ -1,0 +1,14 @@
+name: ansible-lint
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+jobs:
+  build:
+    name: Ansible Lint
+    runs-on: ubuntu-slim
+    steps:
+      - uses: actions/checkout@v6
+      - name: Run ansible-lint
+        uses: ansible/ansible-lint@main

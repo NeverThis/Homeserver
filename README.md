@@ -31,9 +31,6 @@ Prerequisites:
 
 ## TODO
 
-- [ ] Add configuration for Docker daemon
- - [ ] Configure log rotation
- - [ ] Prevent containers from gaining new privileges
 - [ ] Add file-based user management to Dozzle
 
 
