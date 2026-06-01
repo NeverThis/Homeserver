@@ -1,11 +1,11 @@
 ---
 - name: Restart unattended-upgrades
-  systemd:
+  ansible.builtin.systemd:
     name: unattended-upgrades
     state: restarted
 
 - name: Restart fail2ban
-  systemd:
+  ansible.builtin.systemd:
     name: fail2ban
     state: restarted
 

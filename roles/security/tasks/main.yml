@@ -1,46 +1,48 @@
 ---
 # Install unattended-upgrades to periodically and automatically install security patches.
 - name: Install unattended-upgrades
-  apt:
+  ansible.builtin.apt:
     name:
       - unattended-upgrades
     state: present
 
 - name: Configure unattended-upgrades
-  template:
+  ansible.builtin.template:
     src: 20auto-upgrades.j2
     dest: /etc/apt/apt.conf.d/20auto-upgrades
+    mode: "0644"
   notify: Restart unattended-upgrades
 
 - name: Ensure unattended-upgrades is enabled and running
-  systemd:
+  ansible.builtin.systemd:
     name: unattended-upgrades
     state: started
     enabled: true
 
 # Install fail2ban to automatically block repeated failed login attempts.
 - name: Install fail2ban
-  apt:
+  ansible.builtin.apt:
     name:
       - fail2ban
     state: present
 
 - name: Configure fail2ban
-  template:
+  ansible.builtin.template:
     src: jail.local.j2
     dest: /etc/fail2ban/jail.local
+    mode: "0644"
   notify: Restart fail2ban
 
 - name: Ensure fail2ban is enabled and running
-  systemd:
+  ansible.builtin.systemd:
     name: fail2ban
     state: started
     enabled: true
 
 # Install UFW (Uncomplicated Firewall) to block unsolicited traffic.
 - name: Install UFW
-  apt:
-    name: 
+  ansible.builtin.apt:
+    name:
       - ufw
     state: present
 
@@ -62,7 +64,7 @@
     rule: limit
     port: "{{ ssh_port }}"
     proto: tcp
-  notify:  Reload UFW
+  notify: Reload UFW
 
 - name: Ensure UFW is enabled and running
   community.general.ufw:

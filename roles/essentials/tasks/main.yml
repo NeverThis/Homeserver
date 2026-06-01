@@ -1,6 +1,6 @@
 ---
 - name: Install Docker dependencies
-  apt:
+  ansible.builtin.apt:
     name:
       - ca-certificates
     state: present
@@ -18,7 +18,7 @@
 
 # Install docker to run containerized applications
 - name: Install Docker
-  apt:
+  ansible.builtin.apt:
     name:
       - docker-ce
       - docker-ce-cli
@@ -32,10 +32,11 @@
   ansible.builtin.template:
     src: daemon.json.j2
     dest: /etc/docker/daemon.json
+    mode: "0644"
   notify: Restart Docker
 
 - name: Ensure Docker is enabled and running
-  systemd:
+  ansible.builtin.systemd:
     name: docker
     state: started
     enabled: true

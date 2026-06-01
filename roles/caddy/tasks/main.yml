@@ -5,23 +5,28 @@
     state: directory
     owner: "1000"
     group: "1000"
+    mode: "0755"
   loop:
     - /srv/caddy
     - /srv/caddy/data
     - /srv/caddy/config
 
 - name: Deploy Caddyfile
-  template:
+  ansible.builtin.template:
     src: Caddyfile.j2
     dest: /srv/caddy/Caddyfile
     owner: "1000"
     group: "1000"
+    mode: "0644"
   notify: Restart Caddy
 
-- name: Deploy Caddy Docker Compose file
-  template:
+- name: Deploy Docker Compose file
+  ansible.builtin.template:
     src: docker-compose.yml.j2
     dest: /srv/caddy/docker-compose.yml
+    owner: root
+    group: root
+    mode: "0640"
 
 # Install Caddy as a reverse proxy
 - name: Start Caddy
