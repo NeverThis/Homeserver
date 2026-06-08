@@ -7,6 +7,7 @@
     domain: "myhome.lan"
     ssh_port: "{{ lookup('env', 'ANSIBLE_PORT') }}"
     timezone: "Europe/Berlin"
+    language: "deu"
 
   pre_tasks:
     - name: Ensure running on Debian
@@ -21,8 +22,9 @@
   roles:
     - security
     - essentials
+    - monitoring
     - cosmetic
     - pihole
     - caddy
     - gitea
-    - monitoring
+    - paperless

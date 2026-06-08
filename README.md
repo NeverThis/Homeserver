@@ -23,6 +23,7 @@ Prerequisites:
    export ANSIBLE_USER="your_username"
    export ANSIBLE_PORT="your_port"
    export PIHOLE_PASSWORD="your_pihole_password"
+   export PAPERLESS_DB_PASSWORD="your_paperless_db_password"
    ```
 2. Load the environment variables and run the playbook:
     ```bash
@@ -31,8 +32,7 @@ Prerequisites:
 
 ## TODO
 
-- [ ] Add file-based user management to Dozzle
-
+- [ ] Simplify directory creation in all ansible tasks
 
 ## FAQ
 

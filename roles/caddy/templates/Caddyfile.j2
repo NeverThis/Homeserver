@@ -18,3 +18,9 @@ dozzle.{{ domain }} {
         flush_interval -1 # See https://dozzle.dev/guide/changing-base
     }
 }
+
+# Paperless-ngx
+paperless.{{ domain }} {
+    tls internal
+    reverse_proxy paperless:8000
+}
